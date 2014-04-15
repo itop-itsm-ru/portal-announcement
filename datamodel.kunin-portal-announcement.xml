@@ -254,7 +254,7 @@
       <parent>RequestManagement</parent>
       <class>Announcement</class>
     </menu>
-    <menu id="OpenAnnouncements" xsi:type="OQLMenuNode" _delta="define">
+    <menu id="ActiveAnnouncements" xsi:type="OQLMenuNode" _delta="define">
       <rank>98</rank>
       <parent>RequestManagement</parent>
       <oql><![CDATA[SELECT Announcement AS a WHERE (a.start_date <= NOW() OR ISNULL(a.start_date)) AND (a.end_date >= NOW() OR ISNULL(a.end_date)) AND a.status = 'active']]></oql>
