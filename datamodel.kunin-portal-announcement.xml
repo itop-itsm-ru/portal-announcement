@@ -67,6 +67,7 @@
           <sql>status</sql>
           <default_value>active</default_value>
           <is_null_allowed>false</is_null_allowed>
+          <display_style>radio_vertical</display_style>
         </field> 
         <field id="message_type" xsi:type="AttributeEnum">
           <values>
@@ -77,6 +78,7 @@
           <sql>message_type</sql>
           <default_value>message_info</default_value>
           <is_null_allowed>false</is_null_allowed>
+          <display_style>radio_vertical</display_style>
         </field>    
         <field id="customers_list" xsi:type="AttributeLinkedSetIndirect">
           <linked_class>lnkAnnouncementToCustomer</linked_class>
@@ -248,14 +250,22 @@
   </classes>
   <menus>
     <menu id="NewAnnouncement" xsi:type="NewObjectMenuNode" _delta="define">
-      <rank>98</rank>
+      <rank>97</rank>
       <parent>RequestManagement</parent>
       <class>Announcement</class>
     </menu>
-    <menu id="SearchAnnouncement" xsi:type="SearchMenuNode" _delta="define">
+    <menu id="OpenAnnouncements" xsi:type="OQLMenuNode" _delta="define">
+      <rank>98</rank>
+      <parent>RequestManagement</parent>
+      <oql><![CDATA[SELECT Announcement AS a WHERE (a.start_date <= NOW() OR ISNULL(a.start_date)) AND (a.end_date >= NOW() OR ISNULL(a.end_date)) AND a.status = 'active']]></oql>
+      <do_search>1</do_search>
+      <auto_reload>standard</auto_reload>
+    </menu>
+    <menu id="AllAnnouncements" xsi:type="OQLMenuNode" _delta="define">
       <rank>99</rank>
       <parent>RequestManagement</parent>
-      <class>Announcement</class>
+      <oql><![CDATA[SELECT Announcement]]></oql>
+      <do_search>1</do_search>
     </menu>
   </menus>
   <user_rights>
