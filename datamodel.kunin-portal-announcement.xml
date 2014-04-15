@@ -59,6 +59,25 @@
           <default_value/>
           <is_null_allowed>true</is_null_allowed>
         </field>
+        <field id="status" xsi:type="AttributeEnum">
+          <values>
+            <value>active</value>
+            <value>inactive</value>
+          </values>
+          <sql>status</sql>
+          <default_value>active</default_value>
+          <is_null_allowed>false</is_null_allowed>
+        </field> 
+        <field id="message_type" xsi:type="AttributeEnum">
+          <values>
+            <value>message_info</value>
+            <value>message_ok</value>
+            <value>message_error</value>
+          </values>
+          <sql>message_type</sql>
+          <default_value>message_info</default_value>
+          <is_null_allowed>false</is_null_allowed>
+        </field>    
         <field id="customers_list" xsi:type="AttributeLinkedSetIndirect">
           <linked_class>lnkAnnouncementToCustomer</linked_class>
           <ext_key_to_me>announcement_id</ext_key_to_me>
@@ -75,17 +94,23 @@
             <item id="org_id">
               <rank>10</rank>
             </item>
-            <item id="title">
+            <item id="status">
               <rank>20</rank>
             </item>
-            <item id="description">
+            <item id="title">
               <rank>30</rank>
             </item>
-            <item id="start_date">
+            <item id="description">
               <rank>40</rank>
             </item>
-            <item id="end_date">
+            <item id="start_date">
               <rank>50</rank>
+            </item>
+            <item id="end_date">
+              <rank>60</rank>
+            </item>
+            <item id="message_type">
+              <rank>70</rank>
             </item>
             <item id="customers_list">
               <rank>60</rank>
@@ -97,6 +122,9 @@
             <item id="org_id">
               <rank>10</rank>
             </item>
+            <item id="status">
+              <rank>15</rank>
+            </item>
             <item id="title">
               <rank>20</rank>
             </item>
@@ -105,6 +133,9 @@
             </item>
             <item id="end_date">
               <rank>50</rank>
+            </item>
+            <item id="message_type">
+              <rank>60</rank>
             </item>
           </items>
         </search>
@@ -121,6 +152,12 @@
             </item>
             <item id="end_date">
               <rank>50</rank>
+            </item>
+            <item id="message_type">
+              <rank>60</rank>
+            </item>
+            <item id="status">
+              <rank>70</rank>
             </item>
           </items>
         </list>
