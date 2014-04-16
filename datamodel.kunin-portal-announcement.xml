@@ -257,7 +257,7 @@
     <menu id="ActiveAnnouncements" xsi:type="OQLMenuNode" _delta="define">
       <rank>98</rank>
       <parent>RequestManagement</parent>
-      <oql><![CDATA[SELECT Announcement AS a WHERE (a.start_date <= NOW() OR ISNULL(a.start_date)) AND (a.end_date >= NOW() OR ISNULL(a.end_date)) AND a.status = 'active']]></oql>
+      <oql><![CDATA[SELECT Announcement AS a JOIN lnkAnnouncementToCustomer AS lnk ON lnk.announcement_id = a.id WHERE (a.start_date <= NOW() OR ISNULL(a.start_date)) AND (a.end_date >= NOW() OR ISNULL(a.end_date)) AND a.status = 'active']]></oql>
       <do_search>1</do_search>
       <auto_reload>standard</auto_reload>
     </menu>
