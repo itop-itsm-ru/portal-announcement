@@ -51,6 +51,8 @@ Dict::Add('RU RU', 'Russian', 'Russian', array(
 
   'Menu:NewAnnouncement' => 'Создать объявление',
   'Menu:ActiveAnnouncements' => 'Активные объявления',
+  'Menu:ActiveAnnouncements+' => 'Активные объявления (отображаются сейчас)',
   'Menu:AllAnnouncements' => 'Все объявления',
+  'Menu:AllAnnouncements+' => 'Все объявления',
 ));
 ?>
