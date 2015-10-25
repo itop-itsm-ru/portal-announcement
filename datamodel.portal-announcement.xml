@@ -68,7 +68,7 @@
           <default_value>active</default_value>
           <is_null_allowed>false</is_null_allowed>
           <display_style>radio_vertical</display_style>
-        </field> 
+        </field>
         <field id="message_type" xsi:type="AttributeEnum">
           <values>
             <value>message_info</value>
@@ -79,7 +79,7 @@
           <default_value>message_info</default_value>
           <is_null_allowed>false</is_null_allowed>
           <display_style>radio_vertical</display_style>
-        </field>    
+        </field>
         <field id="customers_list" xsi:type="AttributeLinkedSetIndirect">
           <linked_class>lnkAnnouncementToCustomer</linked_class>
           <ext_key_to_me>announcement_id</ext_key_to_me>
@@ -89,7 +89,39 @@
           <duplicates/>
         </field>
       </fields>
-      <methods/>
+      <methods>
+        <method id="DisplayAnnouncement">
+          <static>true</static>
+          <access>public</access>
+          <type>Overload-cmdbAbstractObject</type>
+          <code>
+            <![CDATA[
+              public static function DisplayAnnouncement(WebPage $oP, $oUserOrg = null)
+              {
+                if (is_null($oUserOrg)) {
+                    $iContactId = UserRights::GetContactId();
+                    $oContact = MetaModel::GetObject('Contact', $iContactId, false); // false => Can fail
+                    if (is_object($oContact)) {
+                      $oUserOrg = MetaModel::GetObject('Organization', $oContact->Get('org_id'), false); // false => can fail
+                    } else {
+                      throw new Exception(Dict::S('Portal:ErrorNoContactForThisUser'));
+                    }
+                }
+                $sOQLAnnouncement = "SELECT Announcement AS a JOIN lnkAnnouncementToCustomer AS lnk ON lnk.announcement_id = a.id WHERE lnk.customer_org_id = :org_id AND (a.start_date <= NOW() OR ISNULL(a.start_date)) AND (a.end_date >= NOW() OR ISNULL(a.end_date)) AND a.status = 'active'";
+                $oSearch = DBObjectSearch::FromOQL($sOQLAnnouncement);
+                $oSearch->AllowAllData(); // Если у пользователя стоит ограничение на просмотр содержимого других организаций (объявление принадлежит не его org_id).
+                $oAnnouncementSet = new CMDBObjectSet($oSearch, array(), array('org_id' => $oUserOrg->GetKey()));
+                while ($oAnnouncement = $oAnnouncementSet->Fetch()) {
+                  $oP->add("<div class=\"announcement ".$oAnnouncement->Get('message_type')." \">\n");
+                  $oP->add("<h2>".$oAnnouncement->Get('title')."</h2>\n");
+                  $oP->add("<p>".$oAnnouncement->Get('description')."</p>\n");
+                  $oP->add("</div>\n");
+                }
+              }
+            ]]>
+          </code>
+        </method>
+      </methods>
       <presentation>
         <details>
           <items>

@@ -29,11 +29,11 @@ else
 
 SetupWebPage::AddModule(
 	__FILE__, // Path to the current file, all other file names are relative to the directory containing this file
-	'kunin-portal-announcement/',
+	'portal-announcement/',
 	array(
 		// Identification
 		//
-		'label' => "Объявления для пользователей портала $sCommit",
+		'label' => "Announcements for Customer Portal users $sCommit",
 		'category' => 'business',
 
 		// Setup
@@ -47,7 +47,7 @@ SetupWebPage::AddModule(
 		// Components
 		//
 		'datamodel' => array(
-			'model.kunin-portal-announcement.php'
+			'model.portal-announcement.php'
 		),
 		'webservice' => array(
 
