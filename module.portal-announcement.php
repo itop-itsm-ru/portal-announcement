@@ -6,15 +6,14 @@
 // Git commit info
 if (file_exists(dirname(__FILE__).'/.git/HEAD'))
 {
-	$sDate = date("d.m.y G:i", filemtime(dirname(__FILE__).'/.git/index'));
 	$sHead = trim(preg_replace('/ref:/', '', file_get_contents(dirname(__FILE__).'/.git/HEAD'), -1, $iCount));
 	if ($iCount === 1)
 	{
-		$sCommit = '(commit '.file_get_contents(dirname(__FILE__).'/.git/'.$sHead, false, null, 0, 7).' from '.$sDate.')';
+		$sCommit = '(commit '.file_get_contents(dirname(__FILE__).'/.git/'.$sHead, false, null, 0, 7).')';
 	}
 	elseif ($iCount === 0)
 	{
-		$sCommit = '(commit '.substr($sHead, 0, 7).' from '.$sDate.')';
+		$sCommit = '(commit '.substr($sHead, 0, 7).')';
 	}
 	else
 	{
